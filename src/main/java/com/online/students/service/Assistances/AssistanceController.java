@@ -1,0 +1,43 @@
+package com.online.students.service.Assistances;
+
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/assistances")
+public class AssistanceController {
+
+    private static final String URI_ASSISTANCE_ID = "/{id}";
+
+    private final AssistanceService assistanceService;
+    private final AssistanceDTOMapper assistanceDTOMapper;
+
+    public AssistanceController(AssistanceService assistanceService, AssistanceDTOMapper assistanceDTOMapper) {
+        this.assistanceService = assistanceService;
+        this.assistanceDTOMapper = assistanceDTOMapper;
+    }
+
+    @GetMapping
+    public List<AssistanceDTO> getAll() {
+        return assistanceService.getAll()
+                .stream()
+                .map(assistanceDTOMapper::apply)
+                .toList();
+    }
+
+    @GetMapping(URI_ASSISTANCE_ID)
+    public AssistanceDTO getById(@PathVariable Long id) {
+        return assistanceDTOMapper.apply(assistanceService.getById(id));
+    }
+
+    @PostMapping
+    public AssistanceDTO create(@RequestBody AssistanceDTO assistanceDTO) {
+        return assistanceDTOMapper.apply(assistanceService.create(assistanceDTO));
+    }
+
+    @DeleteMapping(URI_ASSISTANCE_ID)
+    public boolean delete(@PathVariable Long id) {
+        return assistanceService.delete(id);
+    }
+}
