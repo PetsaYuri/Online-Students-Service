@@ -24,6 +24,7 @@ public class UserDTOMapper implements Function<UserEntity, UserDTO> {
                 user.getFullName(),
                 user.getEmail(),
                 null,
+                user.getImage(),
                 user.getRole(),
                 user.getListOfCreatedAssistance()
                         .stream()

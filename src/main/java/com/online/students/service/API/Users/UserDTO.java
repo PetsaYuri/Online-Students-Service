@@ -9,6 +9,7 @@ public record UserDTO(Long id,
                       String fullName,
                       String email,
                       String password,
+                      String image,
                       Roles role,
                       List<AssistanceDTO> listOfCreatedAssistance,
                       List<OrderDTO> listOfOrders) {

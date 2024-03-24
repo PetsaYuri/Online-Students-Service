@@ -25,6 +25,9 @@ public class UserEntity {
     @Column(nullable = false)
     private String fullName, email, password;
 
+    @Column
+    private String image;
+
     @Enumerated(EnumType.ORDINAL)
     private Roles role;
 
@@ -64,6 +67,14 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Roles getRole() {
