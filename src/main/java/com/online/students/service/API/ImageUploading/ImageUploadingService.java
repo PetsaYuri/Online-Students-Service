@@ -10,7 +10,7 @@ public interface ImageUploadingService {
 
     void uploadFileOnCloud(File file, String filename) throws IOException;
 
-    String upload(MultipartFile multipartFile);
+    String upload(MultipartFile multipartFile) throws IOException;
 
     String getExtension(String filename);
 }

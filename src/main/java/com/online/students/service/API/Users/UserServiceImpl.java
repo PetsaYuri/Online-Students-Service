@@ -4,6 +4,7 @@ import com.online.students.service.API.ImageUploading.ImageUploadingService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserEntity uploadImage(Long userId, MultipartFile multipartFile) {
+    public UserEntity uploadImage(Long userId, MultipartFile multipartFile) throws IOException {
         String filename = imageUploadingService.upload(multipartFile);
 
         UserEntity user = userRepository.getReferenceById(userId);
