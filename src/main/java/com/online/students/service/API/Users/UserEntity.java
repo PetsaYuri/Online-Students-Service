@@ -1,8 +1,11 @@
 package com.online.students.service.API.Users;
 
+import com.online.students.service.API.Articles.ArticleEntity;
 import com.online.students.service.API.Orders.OrderEntity;
 import com.online.students.service.API.Assistances.AssistanceEntity;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,6 +19,9 @@ public class UserEntity {
         this.email = email;
         this.password = password;
         role = Roles.STUDENT;
+        listOfCreatedAssistance = new ArrayList<>();
+        listOfOrders = new ArrayList<>();
+        listOfArticles = new ArrayList<>();
     }
 
     @Id
@@ -36,6 +42,9 @@ public class UserEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
     private List<OrderEntity> listOfOrders;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "creator")
+    private List<ArticleEntity> listOfArticles;
 
     public Long getId() {
         return id;
@@ -99,5 +108,13 @@ public class UserEntity {
 
     public void setListOfOrders(List<OrderEntity> listOfOrders) {
         this.listOfOrders = listOfOrders;
+    }
+
+    public List<ArticleEntity> getListOfArticles() {
+        return listOfArticles;
+    }
+
+    public void setListOfArticles(List<ArticleEntity> listOfArticles) {
+        this.listOfArticles = listOfArticles;
     }
 }
