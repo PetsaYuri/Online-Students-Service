@@ -12,9 +12,10 @@ public class ArticleEntity {
 
     public ArticleEntity() {}
 
-    public ArticleEntity(String title, String description, UserEntity creator, ArticlesCategoryEntity articleCategory) {
+    public ArticleEntity(String title, String description, String image, UserEntity creator, ArticlesCategoryEntity articleCategory) {
         this.title = title;
         this.description = description;
+        this.image = image;
         date = LocalDateTime.now();
         this.creator = creator;
         this.articleCategory = articleCategory;
@@ -25,7 +26,7 @@ public class ArticleEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String title, description;
+    private String title, description, image;
 
     @Column(nullable = false)
     private LocalDateTime date;
@@ -58,6 +59,14 @@ public class ArticleEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public LocalDateTime getDate() {

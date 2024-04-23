@@ -8,6 +8,7 @@ public record ArticleDTO(
         Long id,
         String title,
         String description,
+        String image,
         LocalDateTime time,
         Long creatorId,
         Long articleCategoryId) {}
