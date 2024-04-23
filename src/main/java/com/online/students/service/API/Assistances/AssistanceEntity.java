@@ -4,10 +4,12 @@ import com.online.students.service.API.Orders.OrderEntity;
 import com.online.students.service.API.Users.UserEntity;
 import com.online.students.service.API.AssistanceCategories.AssistanceCategoryEntity;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "services")
+@Table(name = "assistance")
 public class AssistanceEntity {
 
     public AssistanceEntity() {}
@@ -18,6 +20,7 @@ public class AssistanceEntity {
         this.cost = cost;
         this.assistanceCategory = assistanceCategory;
         this.instructor = instructor;
+        orders = new ArrayList<>();
     }
 
     @Id

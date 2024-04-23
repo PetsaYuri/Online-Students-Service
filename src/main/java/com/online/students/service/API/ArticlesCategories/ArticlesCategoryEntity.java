@@ -1,21 +1,21 @@
-package com.online.students.service.API.AssistanceCategories;
+package com.online.students.service.API.ArticlesCategories;
 
-import com.online.students.service.API.Assistances.AssistanceEntity;
+import com.online.students.service.API.Articles.ArticleEntity;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "categories_of_assistance")
-public class AssistanceCategoryEntity {
+@Table(name = "categories_of_articles")
+public class ArticlesCategoryEntity {
 
-    public AssistanceCategoryEntity() {}
+    public ArticlesCategoryEntity() {}
 
-    public AssistanceCategoryEntity(String title, String description) {
+    public ArticlesCategoryEntity(String title, String description) {
         this.title = title;
         this.description = description;
-        listOfAssistance = new ArrayList<>();
+        listOfArticles = new ArrayList<>();
     }
 
     @Id
@@ -25,8 +25,8 @@ public class AssistanceCategoryEntity {
     @Column(nullable = false)
     private String title, description;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "assistanceCategory")
-    private List<AssistanceEntity> listOfAssistance;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "articleCategory")
+    private List<ArticleEntity> listOfArticles;
 
     public Long getId() {
         return id;
@@ -52,11 +52,11 @@ public class AssistanceCategoryEntity {
         this.description = description;
     }
 
-    public List<AssistanceEntity> getListOfAssistance() {
-        return listOfAssistance;
+    public List<ArticleEntity> getListOfArticles() {
+        return listOfArticles;
     }
 
-    public void setListOfAssistance(List<AssistanceEntity> listOfAssistance) {
-        this.listOfAssistance = listOfAssistance;
+    public void setListOfArticles(List<ArticleEntity> listOfArticles) {
+        this.listOfArticles = listOfArticles;
     }
 }
