@@ -13,6 +13,7 @@ public class ArticleDTOMapper implements Function<ArticleEntity, ArticleDTO> {
                 articleEntity.getId(),
                 articleEntity.getTitle(),
                 articleEntity.getDescription(),
+                articleEntity.getImage(),
                 articleEntity.getDate(),
                 articleEntity.getCreator().getId(),
                 articleEntity.getArticleCategory().getId());
