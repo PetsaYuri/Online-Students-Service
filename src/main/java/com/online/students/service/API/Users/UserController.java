@@ -1,9 +1,7 @@
 package com.online.students.service.API.Users;
 
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +10,8 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private static final String USER_ID_URI = "/{id}";
+
+    private static final String USER_EDIT_AVATAR_URI = USER_ID_URI + "/editAvatar";
 
     private final UserService userService;
     private final UserDTOMapper userDTOMapper;
@@ -38,9 +38,9 @@ public class UserController {
         return userDTOMapper.apply(user);
     }
 
-    @PatchMapping(USER_ID_URI)
-    public UserDTO uploadImage(@PathVariable Long id, @RequestParam("file")MultipartFile multipartFile) throws IOException {
-        UserEntity updatedUser = userService.uploadImage(id, multipartFile);
+    @PatchMapping(USER_EDIT_AVATAR_URI)
+    public UserDTO editAvatar(@PathVariable Long id, @RequestParam String filename) {
+        UserEntity updatedUser = userService.editAvatar(id, filename);
         return userDTOMapper.apply(updatedUser);
     }
 
