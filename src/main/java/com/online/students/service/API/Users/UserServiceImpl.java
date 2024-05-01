@@ -1,21 +1,16 @@
 package com.online.students.service.API.Users;
 
-import com.online.students.service.API.ImageUploading.ImageUploadingService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
-    private final ImageUploadingService imageUploadingService;
 
-    public UserServiceImpl(UserRepository userRepository, ImageUploadingService imageUploadingService) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.imageUploadingService = imageUploadingService;
     }
 
     @Override
@@ -35,9 +30,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserEntity uploadImage(Long userId, MultipartFile multipartFile) throws IOException {
-        String filename = imageUploadingService.upload(multipartFile);
-
+    public UserEntity editAvatar(Long userId, String filename) {
         UserEntity user = userRepository.getReferenceById(userId);
         user.setImage(filename);
         return userRepository.save(user);
