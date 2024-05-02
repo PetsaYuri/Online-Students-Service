@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories-of-assistance")
+@RequestMapping("/api/categories-of-assistances")
 public class AssistanceCategoryController {
 
-    private static final String ASSISTANCE_CATEGORIES_ID_URI = "/{id}";
+    public static final String URI_ASSISTANCES_CATEGORIES_ID = "/{id}";
 
     private final AssistanceCategoryService assistanceCategoryService;
     private final AssistanceCategoryDTOMapper assistanceCategoryDTOMapper;
@@ -26,7 +26,7 @@ public class AssistanceCategoryController {
                 .toList();
     }
 
-    @GetMapping(ASSISTANCE_CATEGORIES_ID_URI)
+    @GetMapping(URI_ASSISTANCES_CATEGORIES_ID)
     public AssistanceCategoryDTO getById(@PathVariable Long id) {
         return assistanceCategoryDTOMapper.apply(assistanceCategoryService.getById(id));
     }
@@ -36,7 +36,7 @@ public class AssistanceCategoryController {
         return assistanceCategoryDTOMapper.apply(assistanceCategoryService.create(assistanceCategoryDTO));
     }
 
-    @DeleteMapping(ASSISTANCE_CATEGORIES_ID_URI)
+    @DeleteMapping(URI_ASSISTANCES_CATEGORIES_ID)
     public boolean delete(@PathVariable Long id) {
         return assistanceCategoryService.delete(id);
     }

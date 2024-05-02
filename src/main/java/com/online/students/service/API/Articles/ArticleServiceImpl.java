@@ -4,6 +4,7 @@ import com.online.students.service.API.ArticlesCategories.ArticlesCategoryEntity
 import com.online.students.service.API.ArticlesCategories.ArticlesCategoryService;
 import com.online.students.service.API.Users.UserEntity;
 import com.online.students.service.API.Users.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleEntity create(ArticleDTO articleDTO) {
-        UserEntity creator = userService.getOneById(articleDTO.creatorId());
+        UserEntity creator = userService.getOneByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         ArticlesCategoryEntity articlesCategory = articlesCategoryService.getById(articleDTO.articleCategoryId());
 
         ArticleEntity article = new ArticleEntity(articleDTO.title(), articleDTO.description(), articleDTO.image(), creator, articlesCategory);

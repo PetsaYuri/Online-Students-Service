@@ -8,7 +8,7 @@ import java.util.List;
 @RequestMapping("/api/categories-of-articles")
 public class ArticlesCategoryController {
 
-    public static final String URI_ARTICLES_CATEGORY_ID = "/{id}";
+    public static final String URI_ARTICLES_CATEGORIES_ID = "/{id}";
 
     private final ArticlesCategoryService articlesCategoryService;
 
@@ -27,7 +27,7 @@ public class ArticlesCategoryController {
                 .toList();
     }
 
-    @GetMapping(URI_ARTICLES_CATEGORY_ID)
+    @GetMapping(URI_ARTICLES_CATEGORIES_ID)
     public ArticlesCategoryDTO getById(@PathVariable Long id) {
         ArticlesCategoryEntity articlesCategory = articlesCategoryService.getById(id);
         return articlesCategoryDTOMapper.apply(articlesCategory);
@@ -39,7 +39,7 @@ public class ArticlesCategoryController {
         return articlesCategoryDTOMapper.apply(articlesCategory);
     }
 
-    @DeleteMapping(URI_ARTICLES_CATEGORY_ID)
+    @DeleteMapping(URI_ARTICLES_CATEGORIES_ID)
     public boolean delete(@PathVariable Long id) {
         return articlesCategoryService.delete(id);
     }

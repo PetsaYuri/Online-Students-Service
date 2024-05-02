@@ -8,9 +8,13 @@ public interface UserService {
 
     UserEntity getOneById(Long id);
 
+    UserEntity getOneByEmail(String email);
+
     UserEntity create(UserDTO userDTO);
 
-    UserEntity editAvatar(Long userId, String filename);
+    UserEntity changeAvatar(Long userId, String avatar);
+
+    UserEntity changeRole(Long userId, String roleName);
 
     boolean delete(Long id);
 }
