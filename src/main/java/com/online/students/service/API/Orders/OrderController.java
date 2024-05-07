@@ -8,7 +8,7 @@ import java.util.List;
 @RequestMapping("/api/orders")
 public class OrderController {
 
-    private static final String URI_ORDERS_ID = "/{id}";
+    public static final String URI_ORDERS_ID = "/{id}";
 
     private final OrderService orderService;
     private final OrderDTOMapper orderDTOMapper;

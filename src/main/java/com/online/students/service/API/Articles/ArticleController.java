@@ -9,7 +9,7 @@ import java.util.List;
 @RequestMapping("/api/articles")
 public class ArticleController {
 
-    public static final String URI_ARTICLE_ID = "/{id}";
+    public static final String URI_ARTICLES_ID = "/{id}";
 
     private final ArticleService articleService;
 
@@ -28,7 +28,7 @@ public class ArticleController {
                 .toList();
     }
 
-    @GetMapping(URI_ARTICLE_ID)
+    @GetMapping(URI_ARTICLES_ID)
     public ArticleDTO getById(@PathVariable Long id) {
         ArticleEntity article = articleService.getById(id);
         return articleDTOMapper.apply(article);
@@ -41,7 +41,7 @@ public class ArticleController {
         return articleDTOMapper.apply(article);
     }
 
-    @DeleteMapping(URI_ARTICLE_ID)
+    @DeleteMapping(URI_ARTICLES_ID)
     public boolean delete(@PathVariable Long id) {
         return articleService.delete(id);
     }

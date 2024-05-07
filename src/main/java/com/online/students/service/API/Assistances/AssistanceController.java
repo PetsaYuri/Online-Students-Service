@@ -8,7 +8,7 @@ import java.util.List;
 @RequestMapping("/api/assistances")
 public class AssistanceController {
 
-    private static final String URI_ASSISTANCE_ID = "/{id}";
+    public static final String URI_ASSISTANCES_ID = "/{id}";
 
     private final AssistanceService assistanceService;
     private final AssistanceDTOMapper assistanceDTOMapper;
@@ -26,7 +26,7 @@ public class AssistanceController {
                 .toList();
     }
 
-    @GetMapping(URI_ASSISTANCE_ID)
+    @GetMapping(URI_ASSISTANCES_ID)
     public AssistanceDTO getById(@PathVariable Long id) {
         return assistanceDTOMapper.apply(assistanceService.getById(id));
     }
@@ -36,7 +36,7 @@ public class AssistanceController {
         return assistanceDTOMapper.apply(assistanceService.create(assistanceDTO));
     }
 
-    @DeleteMapping(URI_ASSISTANCE_ID)
+    @DeleteMapping(URI_ASSISTANCES_ID)
     public boolean delete(@PathVariable Long id) {
         return assistanceService.delete(id);
     }

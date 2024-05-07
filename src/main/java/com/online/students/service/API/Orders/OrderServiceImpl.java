@@ -4,6 +4,7 @@ import com.online.students.service.API.Users.UserEntity;
 import com.online.students.service.API.Assistances.AssistanceEntity;
 import com.online.students.service.API.Assistances.AssistanceService;
 import com.online.students.service.API.Users.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderEntity create(OrderDTO orderDTO) {
-        UserEntity customer = userService.getOneById(orderDTO.idCustomer());
+        UserEntity customer = userService.getOneByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         AssistanceEntity assistance = assistanceService.getById(orderDTO.idAssistance());
 
         OrderEntity order = new OrderEntity(customer, assistance);

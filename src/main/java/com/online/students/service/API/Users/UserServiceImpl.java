@@ -1,6 +1,11 @@
 package com.online.students.service.API.Users;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -20,20 +25,72 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserEntity getOneById(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
         return userRepository.getReferenceById(id);
     }
 
     @Override
-    public UserEntity create(UserDTO userDTO) {
-        UserEntity newUser = new UserEntity(userDTO.fullName(), userDTO.email(), userDTO.password());
-        return userRepository.save(newUser);
+    public UserEntity getOneByEmail(String email) {
+        UserEntity user = userRepository.findByEmail(email);
+        if (!userRepository.existsById(user.getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        return user;
     }
 
     @Override
-    public UserEntity editAvatar(Long userId, String filename) {
-        UserEntity user = userRepository.getReferenceById(userId);
-        user.setImage(filename);
-        return userRepository.save(user);
+    public UserEntity create(UserDTO userDTO) {
+        UserEntity existingUser = userRepository.findByEmail(userDTO.email());
+        if (existingUser != null) {
+            throw new ResponseStatusException(HttpStatusCode.valueOf(HttpStatus.BAD_REQUEST.value()), "User with this email already exists");
+        }
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(userDTO.password());
+        UserEntity newUser = new UserEntity(userDTO.fullName(), userDTO.email(), encodedPassword);
+        UserEntity createdUser = userRepository.save(newUser);
+
+        if (createdUser.getId().equals(1L)) {
+            createdUser.setRole(Roles.OWNER);
+            return userRepository.save(createdUser);
+        }
+
+        return createdUser;
+    }
+
+    @Override
+    public UserEntity changeAvatar(Long userId, String avatar) {
+        UserEntity endUser = getOneById(userId);
+        UserEntity currentUser = getOneByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        if (currentUser.equals(endUser) || (currentUser.getRole().equals(Roles.ADMIN) || currentUser.getRole().equals(Roles.OWNER))) {
+            endUser.setImage(avatar);
+            return userRepository.save(endUser);
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot change the avatar for this user.");
+    }
+
+    @Override
+    public UserEntity changeRole(Long userId, String roleName) {
+        UserEntity endUser = getOneById(userId);
+        UserEntity currentUser = getOneByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Roles role = Roles.valueOf(roleName);
+
+        if (role.equals(Roles.OWNER)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot assign the role \"owner\" to anyone.");
+        }
+
+        if (role.equals(Roles.ADMIN) && !currentUser.getRole().equals(Roles.OWNER)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot assign the role \"admin\" if you don't have the role \"owner\".");
+        }
+
+        if (currentUser.getRole().equals(Roles.ADMIN) && (endUser.getRole().equals(Roles.ADMIN) || endUser.getRole().equals(Roles.OWNER))) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot change the role if end user have the role \"admin\" or \"owner\".");
+        }
+
+        endUser.setRole(role);
+        return userRepository.save(endUser);
     }
 
     @Override
