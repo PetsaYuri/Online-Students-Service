@@ -36,6 +36,11 @@ public class AssistanceCategoryController {
         return assistanceCategoryDTOMapper.apply(assistanceCategoryService.create(assistanceCategoryDTO));
     }
 
+    @PutMapping(URI_ASSISTANCES_CATEGORIES_ID)
+    public AssistanceCategoryDTO update(@PathVariable Long id, @RequestBody AssistanceCategoryDTO assistanceCategoryDTO) {
+        return assistanceCategoryDTOMapper.apply(assistanceCategoryService.update(id, assistanceCategoryDTO));
+    }
+
     @DeleteMapping(URI_ASSISTANCES_CATEGORIES_ID)
     public boolean delete(@PathVariable Long id) {
         return assistanceCategoryService.delete(id);

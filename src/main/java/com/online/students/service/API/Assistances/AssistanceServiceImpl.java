@@ -51,6 +51,24 @@ public class AssistanceServiceImpl implements AssistanceService{
     }
 
     @Override
+    public AssistanceEntity update(Long id, AssistanceDTO assistanceDTO) {
+        UserEntity currentUser = userService.getOneByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        AssistanceEntity existingAssistance = getById(id);
+
+        if (currentUser.equals(existingAssistance.getInstructor()) || (currentUser.getRole().equals(Roles.OWNER) || currentUser.getRole().equals(Roles.ADMIN))) {
+            existingAssistance.setTitle(assistanceDTO.title());
+            existingAssistance.setDescription(assistanceDTO.description());
+            existingAssistance.setCost(assistanceDTO.cost());
+            AssistanceCategoryEntity assistanceCategory = assistanceCategoryService.getById(assistanceDTO.idAssistanceCategory());
+            existingAssistance.setAssistanceCategory(assistanceCategory);
+
+            return assistanceRepository.save(existingAssistance);
+        }
+
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You don't have permission to update this assistance");
+    }
+
+    @Override
     public boolean delete(Long id) {
         AssistanceEntity assistance = assistanceRepository.getReferenceById(id);
         UserEntity currentUser = userService.getOneByEmail(SecurityContextHolder.getContext().getAuthentication().getName());

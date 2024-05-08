@@ -10,5 +10,7 @@ public interface ArticleService {
 
     ArticleEntity create(ArticleDTO articleDTO);
 
+    ArticleEntity update(Long id, ArticleDTO articleDTO);
+
     boolean delete(Long id);
 }

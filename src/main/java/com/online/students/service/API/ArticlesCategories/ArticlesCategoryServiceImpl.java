@@ -30,6 +30,16 @@ public class ArticlesCategoryServiceImpl implements ArticlesCategoryService {
     }
 
     @Override
+    public ArticlesCategoryEntity update(Long id, ArticlesCategoryDTO articlesCategoryDTO) {
+        ArticlesCategoryEntity existingCategory = getById(id);
+
+        existingCategory.setTitle(articlesCategoryDTO.title());
+        existingCategory.setDescription(articlesCategoryDTO.description());
+
+        return articlesCategoryRepository.save(existingCategory);
+    }
+
+    @Override
     public boolean delete(Long id) {
         articlesCategoryRepository.deleteById(id);
         return true;

@@ -30,6 +30,16 @@ public class AssistanceCategoryServiceImpl implements AssistanceCategoryService{
     }
 
     @Override
+    public AssistanceCategoryEntity update(Long id, AssistanceCategoryDTO assistanceCategoryDTO) {
+        AssistanceCategoryEntity existingCategory = getById(id);
+
+        existingCategory.setTitle(assistanceCategoryDTO.title());
+        existingCategory.setDescription(assistanceCategoryDTO.description());
+
+        return assistanceCategoryRepository.save(existingCategory);
+    }
+
+    @Override
     public boolean delete(Long id) {
         AssistanceCategoryEntity assistanceCategory = assistanceCategoryRepository.getReferenceById(id);
         assistanceCategoryRepository.delete(assistanceCategory);

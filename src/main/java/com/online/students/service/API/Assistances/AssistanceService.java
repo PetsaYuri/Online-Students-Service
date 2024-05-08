@@ -10,5 +10,7 @@ public interface AssistanceService {
 
     AssistanceEntity create(AssistanceDTO assistanceDTO);
 
+    AssistanceEntity update(Long id, AssistanceDTO assistanceDTO);
+
     boolean delete(Long id);
 }

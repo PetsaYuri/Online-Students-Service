@@ -39,6 +39,12 @@ public class ArticlesCategoryController {
         return articlesCategoryDTOMapper.apply(articlesCategory);
     }
 
+    @PutMapping(URI_ARTICLES_CATEGORIES_ID)
+    public ArticlesCategoryDTO update(@PathVariable Long id, @RequestBody ArticlesCategoryDTO articlesCategoryDTO) {
+        ArticlesCategoryEntity articlesCategory = articlesCategoryService.update(id, articlesCategoryDTO);
+        return articlesCategoryDTOMapper.apply(articlesCategory);
+    }
+
     @DeleteMapping(URI_ARTICLES_CATEGORIES_ID)
     public boolean delete(@PathVariable Long id) {
         return articlesCategoryService.delete(id);

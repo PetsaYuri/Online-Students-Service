@@ -38,6 +38,12 @@ public class UserController {
         return userDTOMapper.apply(user);
     }
 
+    @PutMapping(URI_USERS_ID)
+    public UserDTO update(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        UserEntity user = userService.update(id, userDTO);
+        return userDTOMapper.apply(user);
+    }
+
     @PatchMapping(URI_USERS_CHANGE_AVATAR)
     public UserDTO changeAvatar(@PathVariable Long id, @RequestParam String avatar) {
         UserEntity updatedUser = userService.changeAvatar(id, avatar);
