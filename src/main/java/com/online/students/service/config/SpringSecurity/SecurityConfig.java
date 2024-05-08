@@ -32,10 +32,9 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/api/assistances/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/assistances/**").hasAnyRole(Roles.INSTRUCTOR.name(), Roles.ADMIN.name(), Roles.OWNER.name())
-                        .requestMatchers(HttpMethod.PUT, "/api/assistances/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/assistances/**").authenticated()
 
-                        .requestMatchers(HttpMethod.GET, "/api/categories-of-assistance/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/categories-of-assistances/**").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/api/images/**").authenticated()
 
@@ -43,7 +42,6 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/api/users/{id}/avatar").authenticated()
-                        .requestMatchers(HttpMethod.PUT, "/api/users/**").authenticated()
 
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/profile").permitAll()
