@@ -12,6 +12,8 @@ public interface UserService {
 
     UserEntity create(UserDTO userDTO);
 
+    UserEntity update(Long id, UserDTO userDTO);
+
     UserEntity changeAvatar(Long userId, String avatar);
 
     UserEntity changeRole(Long userId, String roleName);

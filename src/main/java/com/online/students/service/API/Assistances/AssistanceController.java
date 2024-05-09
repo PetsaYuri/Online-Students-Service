@@ -36,6 +36,11 @@ public class AssistanceController {
         return assistanceDTOMapper.apply(assistanceService.create(assistanceDTO));
     }
 
+    @PutMapping(URI_ASSISTANCES_ID)
+    public AssistanceDTO update(@PathVariable Long id, @RequestBody AssistanceDTO assistanceDTO) {
+        return assistanceDTOMapper.apply(assistanceService.update(id, assistanceDTO));
+    }
+
     @DeleteMapping(URI_ASSISTANCES_ID)
     public boolean delete(@PathVariable Long id) {
         return assistanceService.delete(id);

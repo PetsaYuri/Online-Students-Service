@@ -44,6 +44,19 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public ArticleEntity update(Long id, ArticleDTO articleDTO) {
+        ArticleEntity existingArticle = getById(id);
+
+        existingArticle.setTitle(articleDTO.title());
+        existingArticle.setDescription(articleDTO.description());
+        existingArticle.setImage(articleDTO.image());
+        ArticlesCategoryEntity articlesCategory = articlesCategoryService.getById(articleDTO.articleCategoryId());
+        existingArticle.setArticleCategory(articlesCategory);
+
+        return articleRepository.save(existingArticle);
+    }
+
+    @Override
     public boolean delete(Long id) {
         articleRepository.deleteById(id);
         return true;

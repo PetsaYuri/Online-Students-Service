@@ -41,6 +41,12 @@ public class ArticleController {
         return articleDTOMapper.apply(article);
     }
 
+    @PutMapping(URI_ARTICLES_ID)
+    public ArticleDTO update(@PathVariable Long id, @RequestBody ArticleDTO articleDTO) {
+        ArticleEntity article = articleService.update(id, articleDTO);
+        return articleDTOMapper.apply(article);
+    }
+
     @DeleteMapping(URI_ARTICLES_ID)
     public boolean delete(@PathVariable Long id) {
         return articleService.delete(id);

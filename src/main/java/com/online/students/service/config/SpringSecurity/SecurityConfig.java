@@ -27,17 +27,25 @@ public class SecurityConfig {
                 .addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/api/articles/**").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/api/categories-of-articles/**").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/api/assistances/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/assistances/**").hasAnyRole(Roles.INSTRUCTOR.name(), Roles.ADMIN.name(), Roles.OWNER.name())
                         .requestMatchers(HttpMethod.DELETE, "/api/assistances/**").authenticated()
+
                         .requestMatchers(HttpMethod.GET, "/api/categories-of-assistances/**").permitAll()
+
                         .requestMatchers(HttpMethod.POST, "/api/images/**").authenticated()
+
                         .requestMatchers(HttpMethod.GET, "/api/orders/**").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/api/users/{id}/avatar").authenticated()
+
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/profile").permitAll()
+
                         .anyRequest().hasAnyRole(Roles.ADMIN.name(), Roles.OWNER.name()))
                 .logout(logout -> logout.logoutUrl("/api/logout"))
                 .httpBasic(Customizer.withDefaults())

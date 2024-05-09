@@ -61,6 +61,22 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserEntity update(Long id, UserDTO userDTO) {
+        UserEntity currentUser = getOneByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        UserEntity existingUser = getOneById(id);
+
+        if (currentUser.equals(existingUser) || (currentUser.getRole().equals(Roles.OWNER) || currentUser.getRole().equals(Roles.ADMIN))) {
+            existingUser.setFullName(userDTO.fullName());
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            existingUser.setPassword(bCryptPasswordEncoder.encode(userDTO.password()));
+            existingUser.setImage(userDTO.image());
+
+            return userRepository.save(existingUser);
+        }
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You don't have permission to update this user");
+    }
+
+    @Override
     public UserEntity changeAvatar(Long userId, String avatar) {
         UserEntity endUser = getOneById(userId);
         UserEntity currentUser = getOneByEmail(SecurityContextHolder.getContext().getAuthentication().getName());

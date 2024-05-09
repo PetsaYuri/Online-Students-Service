@@ -10,5 +10,7 @@ public interface ArticlesCategoryService {
 
     ArticlesCategoryEntity create(ArticlesCategoryDTO articlesCategoryDTO);
 
+    ArticlesCategoryEntity update(Long id, ArticlesCategoryDTO articlesCategoryDTO);
+
     boolean delete(Long id);
 }
