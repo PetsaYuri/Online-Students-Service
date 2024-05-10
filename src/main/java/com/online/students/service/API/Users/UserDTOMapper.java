@@ -27,6 +27,7 @@ public class UserDTOMapper implements Function<UserEntity, UserDTO> {
                 user.getFullName(),
                 user.getEmail(),
                 null,
+                user.getBalance(),
                 user.getImage(),
                 user.getRole(),
 

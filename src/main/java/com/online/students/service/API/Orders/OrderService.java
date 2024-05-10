@@ -10,5 +10,9 @@ public interface OrderService {
 
     OrderEntity create(OrderDTO orderDTO);
 
+    OrderEntity update(Long id, OrderDTO orderDTO);
+
+    OrderEntity changeStatus(Long id, String status, String message);
+
     boolean delete(Long id);
 }

@@ -18,5 +18,7 @@ public interface UserService {
 
     UserEntity changeRole(Long userId, String roleName);
 
+    UserEntity changeBalance(Long userId, int amount);
+
     boolean delete(Long id);
 }

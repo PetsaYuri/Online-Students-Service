@@ -110,6 +110,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserEntity changeBalance(Long userId, int amount) {
+        UserEntity user = getOneById(userId);
+        user.setBalance(user.getBalance() + amount);
+
+        if (user.getBalance() < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Your balance can't be less than 0");
+        }
+        return userRepository.save(user);
+    }
+
+    @Override
     public boolean delete(Long id) {
         UserEntity user = userRepository.getReferenceById(id);
         userRepository.delete(user);

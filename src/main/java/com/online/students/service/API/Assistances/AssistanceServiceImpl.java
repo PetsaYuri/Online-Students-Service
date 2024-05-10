@@ -1,10 +1,10 @@
 package com.online.students.service.API.Assistances;
 
+import com.online.students.service.API.AssistanceCategories.AssistanceCategoryEntity;
+import com.online.students.service.API.AssistanceCategories.AssistanceCategoryService;
 import com.online.students.service.API.Users.Roles;
 import com.online.students.service.API.Users.UserEntity;
 import com.online.students.service.API.Users.UserService;
-import com.online.students.service.API.AssistanceCategories.AssistanceCategoryEntity;
-import com.online.students.service.API.AssistanceCategories.AssistanceCategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -39,6 +39,10 @@ public class AssistanceServiceImpl implements AssistanceService{
     public AssistanceEntity create(AssistanceDTO assistanceDTO) {
         AssistanceCategoryEntity assistanceCategory = assistanceCategoryService.getById(assistanceDTO.idAssistanceCategory());
         UserEntity instructor = userService.getOneByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        if (!instructor.getRole().equals(Roles.INSTRUCTOR)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You can't create assistance, because you don't have role " + Roles.INSTRUCTOR);
+        }
 
         AssistanceEntity assistance = new AssistanceEntity(
                 assistanceDTO.title(),

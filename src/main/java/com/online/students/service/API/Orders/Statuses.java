@@ -2,7 +2,10 @@ package com.online.students.service.API.Orders;
 
 public enum Statuses {
 
-    PENDING,
+    NEW,
     ACCEPTED,
-    DENIED
+    REFUSED,
+    COMPLETED,
+    CANCELED,
+    CALL_ADMIN
 }

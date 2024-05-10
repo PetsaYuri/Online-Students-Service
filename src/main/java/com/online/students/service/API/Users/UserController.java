@@ -12,6 +12,7 @@ public class UserController {
     public static final String URI_USERS_ID = "/{id}";
     public static final String URI_USERS_CHANGE_AVATAR = URI_USERS_ID + "/avatar";
     public static final String URI_USERS_CHANGE_ROLE = URI_USERS_ID + "/role";
+    public static final String URI_USERS_CHANGE_BALANCE = URI_USERS_ID + "/balance";
 
     private final UserService userService;
     private final UserDTOMapper userDTOMapper;
@@ -53,6 +54,12 @@ public class UserController {
     @PatchMapping(URI_USERS_CHANGE_ROLE)
     public UserDTO changeRole(@PathVariable Long id, @RequestParam String role) {
         UserEntity updatedUser = userService.changeRole(id, role);
+        return userDTOMapper.apply(updatedUser);
+    }
+
+    @PatchMapping(URI_USERS_CHANGE_BALANCE)
+    public UserDTO changeBalance(@PathVariable Long id, @RequestParam int amount) {
+        UserEntity updatedUser = userService.changeBalance(id, amount);
         return userDTOMapper.apply(updatedUser);
     }
 
