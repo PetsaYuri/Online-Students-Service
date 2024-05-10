@@ -67,9 +67,12 @@ public class UserServiceImpl implements UserService{
 
         if (currentUser.equals(existingUser) || (currentUser.getRole().equals(Roles.OWNER) || currentUser.getRole().equals(Roles.ADMIN))) {
             existingUser.setFullName(userDTO.fullName());
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            existingUser.setPassword(bCryptPasswordEncoder.encode(userDTO.password()));
             existingUser.setImage(userDTO.image());
+
+            if (!userDTO.password().isBlank()) {
+                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+                existingUser.setPassword(bCryptPasswordEncoder.encode(userDTO.password()));
+            }
 
             return userRepository.save(existingUser);
         }

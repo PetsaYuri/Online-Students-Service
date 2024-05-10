@@ -45,6 +45,7 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/api/users").hasAnyRole(Roles.ADMIN.name(), Roles.OWNER.name())
                         .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/users/**").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/api/users/{id}/avatar").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/api/users/{id}/balance").authenticated()
 
