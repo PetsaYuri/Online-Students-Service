@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,6 +29,21 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<OrderEntity> getAll() {
         return orderRepository.findAll();
+    }
+
+    public List<OrderEntity> getOwnOrders() {
+        UserEntity currentUser = userService.getOneByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        if (currentUser.getRole().equals(Roles.INSTRUCTOR)) {
+            List<OrderEntity> orders = new ArrayList<>();
+            currentUser.getListOfCreatedAssistance()
+                    .forEach(assistance -> {
+                        orders.addAll(assistance.getOrders());
+                    });
+            return orders;
+        }
+
+        return currentUser.getListOfOrders();
     }
 
     @Override

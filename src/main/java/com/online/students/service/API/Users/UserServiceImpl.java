@@ -73,8 +73,7 @@ public class UserServiceImpl implements UserService{
         if (currentUser.getRole().equals(Roles.OWNER) || currentUser.getRole().equals(Roles.ADMIN)) {
             existingUser.setFullName(userDTO.fullName());
             existingUser.setEmail(userDTO.email());
-            Roles role = Roles.valueOf(userDTO.role());
-            existingUser.setRole(role);
+            changeRole(id, userDTO.role());
             existingUser.setBalance(userDTO.balance());
             existingUser.setImage(userDTO.image());
 

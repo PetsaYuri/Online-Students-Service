@@ -6,6 +6,8 @@ public interface OrderService {
 
     List<OrderEntity> getAll();
 
+    List<OrderEntity> getOwnOrders();
+
     OrderEntity getById(Long id);
 
     OrderEntity create(OrderDTO orderDTO);

@@ -10,6 +10,7 @@ public class OrderController {
 
     public static final String URI_ORDERS_ID = "/{id}";
     public static final String URI_CHANGE_STATUS = URI_ORDERS_ID + "/status";
+    public static final String URI_OWN_ORDERS = "/own";
 
     private final OrderService orderService;
     private final OrderDTOMapper orderDTOMapper;
@@ -23,8 +24,16 @@ public class OrderController {
     public List<OrderDTO> getAll() {
             return orderService.getAll()
                     .stream()
-                    .map(orderDTOMapper::apply)
+                    .map(orderDTOMapper)
                     .toList();
+    }
+
+    @GetMapping(URI_OWN_ORDERS)
+    public List<OrderDTO> getOwnOrders() {
+        return orderService.getOwnOrders()
+                .stream()
+                .map(orderDTOMapper)
+                .toList();
     }
 
     @GetMapping(URI_ORDERS_ID)
