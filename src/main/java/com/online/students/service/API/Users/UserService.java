@@ -6,6 +6,8 @@ public interface UserService {
 
     List<UserEntity> getAll();
 
+    Roles[] getRoles();
+
     UserEntity getOneById(Long id);
 
     UserEntity getOneByEmail(String email);

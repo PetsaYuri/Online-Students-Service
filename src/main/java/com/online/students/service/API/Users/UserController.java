@@ -27,6 +27,11 @@ public class UserController {
         return userService.getAll().stream().map(userDTOMapper).collect(Collectors.toList());
     }
 
+    @GetMapping("/roles")
+    public Roles[] getRoles() {
+        return userService.getRoles();
+    }
+
     @GetMapping(URI_USERS_ID)
     public UserDTO getOneById(@PathVariable Long id) {
         UserEntity user = userService.getOneById(id);

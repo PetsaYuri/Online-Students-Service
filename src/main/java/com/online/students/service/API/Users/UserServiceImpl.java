@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public Roles[] getRoles() {
+        return Roles.values();
+    }
+
+    @Override
     public UserEntity getOneById(Long id) {
         if (!userRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
@@ -65,15 +70,29 @@ public class UserServiceImpl implements UserService{
         UserEntity currentUser = getOneByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         UserEntity existingUser = getOneById(id);
 
-        if (currentUser.equals(existingUser) || (currentUser.getRole().equals(Roles.OWNER) || currentUser.getRole().equals(Roles.ADMIN))) {
+        if (currentUser.getRole().equals(Roles.OWNER) || currentUser.getRole().equals(Roles.ADMIN)) {
             existingUser.setFullName(userDTO.fullName());
+            existingUser.setEmail(userDTO.email());
+            Roles role = Roles.valueOf(userDTO.role());
+            existingUser.setRole(role);
+            existingUser.setBalance(userDTO.balance());
             existingUser.setImage(userDTO.image());
 
-            if (!userDTO.password().isBlank()) {
+            if (userDTO.password() != null && !userDTO.password().isBlank()) {
                 BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
                 existingUser.setPassword(bCryptPasswordEncoder.encode(userDTO.password()));
             }
+            return userRepository.save(existingUser);
+        }
 
+        else if (currentUser.equals(existingUser)) {
+            existingUser.setFullName(userDTO.fullName());
+            existingUser.setImage(userDTO.image());
+
+            if (userDTO.password() != null && !userDTO.password().isBlank()) {
+                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+                existingUser.setPassword(bCryptPasswordEncoder.encode(userDTO.password()));
+            }
             return userRepository.save(existingUser);
         }
         throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You don't have permission to update this user");

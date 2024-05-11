@@ -13,7 +13,7 @@ public record UserDTO(Long id,
                       String password,
                       int balance,
                       String image,
-                      Roles role,
+                      String role,
                       List<AssistanceDTO> listOfCreatedAssistance,
                       List<OrderDTO> listOfOrders,
                       List<ArticleDTO> articleList) {

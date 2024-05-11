@@ -29,7 +29,7 @@ public class UserDTOMapper implements Function<UserEntity, UserDTO> {
                 null,
                 user.getBalance(),
                 user.getImage(),
-                user.getRole(),
+                user.getRole().name(),
 
                 user.getListOfCreatedAssistance()
                         .stream()
