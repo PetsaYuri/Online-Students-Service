@@ -6,6 +6,8 @@ public interface UserService {
 
     List<UserEntity> getAll();
 
+    Roles[] getRoles();
+
     UserEntity getOneById(Long id);
 
     UserEntity getOneByEmail(String email);
@@ -17,6 +19,8 @@ public interface UserService {
     UserEntity changeAvatar(Long userId, String avatar);
 
     UserEntity changeRole(Long userId, String roleName);
+
+    UserEntity changeBalance(Long userId, int amount);
 
     boolean delete(Long id);
 }

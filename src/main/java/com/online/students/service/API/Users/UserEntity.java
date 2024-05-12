@@ -18,6 +18,7 @@ public class UserEntity {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
+        balance = 0;
         role = Roles.STUDENT;
         listOfCreatedAssistance = new ArrayList<>();
         listOfOrders = new ArrayList<>();
@@ -30,6 +31,9 @@ public class UserEntity {
 
     @Column(nullable = false)
     private String fullName, email, password;
+
+    @Column(nullable = false)
+    private int balance;
 
     @Column
     private String image;
@@ -76,6 +80,14 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
     public String getImage() {

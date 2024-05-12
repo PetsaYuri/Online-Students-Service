@@ -38,10 +38,17 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.POST, "/api/images/**").authenticated()
 
-                        .requestMatchers(HttpMethod.GET, "/api/orders/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/orders/own").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/orders/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/orders/**").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/api/orders/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/orders/**").authenticated()
 
+                        .requestMatchers(HttpMethod.GET, "/api/users").hasAnyRole(Roles.ADMIN.name(), Roles.OWNER.name())
                         .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/users/**").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/api/users/{id}/avatar").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/api/users/{id}/balance").authenticated()
 
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/profile").permitAll()

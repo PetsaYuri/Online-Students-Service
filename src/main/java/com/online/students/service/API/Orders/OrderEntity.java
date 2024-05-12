@@ -12,11 +12,15 @@ public class OrderEntity {
 
     public OrderEntity() {}
 
-    public OrderEntity(UserEntity customer, AssistanceEntity assistance) {
-        date = LocalDateTime.now();
+    public OrderEntity(UserEntity customer, AssistanceEntity assistance, LocalDateTime deadline, String notes) {
+        dateOfCreation = LocalDateTime.now();
+        this.deadline = deadline;
+        this.notes = notes;
+        this.price = assistance.getCost();
         this.customer = customer;
         this.assistance = assistance;
-        status = Statuses.PENDING;
+        status = Statuses.NEW;
+        message = "Seller will review your application later";
     }
 
     @Id
@@ -24,9 +28,15 @@ public class OrderEntity {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime date;
+    private LocalDateTime dateOfCreation, deadline;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
+    private String notes, message;
+
+    @Column(nullable = false)
+    private int price;
+
+    @Enumerated(EnumType.STRING)
     private Statuses status;
 
     @ManyToOne(optional = false)
@@ -43,12 +53,44 @@ public class OrderEntity {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public LocalDateTime getDateOfCreation() {
+        return dateOfCreation;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setDateOfCreation(LocalDateTime dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public Statuses getStatus() {
