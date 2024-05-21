@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ArticlesCategoryRepository extends JpaRepository<ArticlesCategoryEntity, Long> {
+
+    ArticlesCategoryEntity findByTitle(String title);
 }

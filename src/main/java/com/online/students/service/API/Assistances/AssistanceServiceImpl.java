@@ -26,7 +26,13 @@ public class AssistanceServiceImpl implements AssistanceService{
     }
 
     @Override
-    public List<AssistanceEntity> getAll() {
+    public List<AssistanceEntity> getAll(String category) {
+        if (category != null) {
+            AssistanceCategoryEntity assistanceCategory = assistanceCategoryService.getByTitle(category);
+            return assistanceRepository.findByAssistanceCategory(assistanceCategory);
+
+        }
+
         return assistanceRepository.findAll();
     }
 

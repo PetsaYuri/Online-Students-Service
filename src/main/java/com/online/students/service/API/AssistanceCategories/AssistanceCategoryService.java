@@ -8,6 +8,8 @@ public interface AssistanceCategoryService {
 
     AssistanceCategoryEntity getById(Long id);
 
+    AssistanceCategoryEntity getByTitle(String title);
+
     AssistanceCategoryEntity create(AssistanceCategoryDTO assistanceCategoryDTO);
 
     AssistanceCategoryEntity update(Long id, AssistanceCategoryDTO assistanceCategoryDTO);

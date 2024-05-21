@@ -24,6 +24,11 @@ public class AssistanceCategoryServiceImpl implements AssistanceCategoryService{
     }
 
     @Override
+    public AssistanceCategoryEntity getByTitle(String title) {
+        return assistanceCategoryRepository.findByTitle(title);
+    }
+
+    @Override
     public AssistanceCategoryEntity create(AssistanceCategoryDTO assistanceCategoryDTO) {
         AssistanceCategoryEntity assistanceCategory = new AssistanceCategoryEntity(assistanceCategoryDTO.title(), assistanceCategoryDTO.description());
         return assistanceCategoryRepository.save(assistanceCategory);

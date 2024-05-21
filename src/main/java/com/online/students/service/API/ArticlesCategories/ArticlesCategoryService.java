@@ -8,6 +8,8 @@ public interface ArticlesCategoryService {
 
     ArticlesCategoryEntity getById(Long id);
 
+    ArticlesCategoryEntity getByTitle(String title);
+
     ArticlesCategoryEntity create(ArticlesCategoryDTO articlesCategoryDTO);
 
     ArticlesCategoryEntity update(Long id, ArticlesCategoryDTO articlesCategoryDTO);

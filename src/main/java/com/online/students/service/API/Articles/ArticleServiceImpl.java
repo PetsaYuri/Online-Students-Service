@@ -25,7 +25,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleEntity> getAll() {
+    public List<ArticleEntity> getAll(String category) {
+        if (category != null) {
+            ArticlesCategoryEntity articlesCategory = articlesCategoryService.getByTitle(category);
+           return articleRepository.findByArticleCategory(articlesCategory);
+        }
+
         return articleRepository.findAll();
     }
 

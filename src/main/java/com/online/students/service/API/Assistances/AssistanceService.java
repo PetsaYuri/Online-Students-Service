@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface AssistanceService {
 
-    List<AssistanceEntity> getAll();
+    List<AssistanceEntity> getAll(String category);
 
     AssistanceEntity getById(Long id);
 
