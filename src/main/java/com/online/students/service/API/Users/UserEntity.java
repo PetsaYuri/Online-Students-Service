@@ -14,12 +14,12 @@ public class UserEntity {
 
     public UserEntity(){}
 
-    public UserEntity(String fullName, String email, String password) {
+    public UserEntity(String fullName, String email, String password, Roles role) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         balance = 0;
-        role = Roles.STUDENT;
+        this.role = role;
         listOfCreatedAssistance = new ArrayList<>();
         listOfOrders = new ArrayList<>();
         listOfArticles = new ArrayList<>();

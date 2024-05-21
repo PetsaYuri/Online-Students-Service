@@ -54,7 +54,8 @@ public class UserServiceImpl implements UserService{
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(userDTO.password());
-        UserEntity newUser = new UserEntity(userDTO.fullName(), userDTO.email(), encodedPassword);
+        Roles role = userDTO.role().equals(Roles.STUDENT.name()) ? Roles.STUDENT : Roles.INSTRUCTOR;
+        UserEntity newUser = new UserEntity(userDTO.fullName(), userDTO.email(), encodedPassword, role);
         UserEntity createdUser = userRepository.save(newUser);
 
         if (createdUser.getId().equals(1L)) {
