@@ -1,5 +1,6 @@
 package com.online.students.service.API.Articles;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,13 +37,13 @@ public class ArticleController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ArticleDTO create(@RequestBody ArticleDTO articleDTO) {
+    public ArticleDTO create(@RequestBody @Valid ArticleDTO articleDTO) {
         ArticleEntity article = articleService.create(articleDTO);
         return articleDTOMapper.apply(article);
     }
 
     @PutMapping(URI_ARTICLES_ID)
-    public ArticleDTO update(@PathVariable Long id, @RequestBody ArticleDTO articleDTO) {
+    public ArticleDTO update(@PathVariable Long id, @Valid @RequestBody ArticleDTO articleDTO) {
         ArticleEntity article = articleService.update(id, articleDTO);
         return articleDTOMapper.apply(article);
     }

@@ -1,5 +1,6 @@
 package com.online.students.service.API.Users;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDTO create(@RequestBody UserDTO userDTO) {
+    public UserDTO create(@RequestBody @Valid UserDTO userDTO) {
         UserEntity user = userService.create(userDTO);
         return userDTOMapper.apply(user);
     }

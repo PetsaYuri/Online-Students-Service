@@ -1,5 +1,6 @@
 package com.online.students.service.API.ArticlesCategories;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,13 +35,13 @@ public class ArticlesCategoryController {
     }
 
     @PostMapping
-    public ArticlesCategoryDTO create(@RequestBody ArticlesCategoryDTO articlesCategoryDTO) {
+    public ArticlesCategoryDTO create(@RequestBody @Valid ArticlesCategoryDTO articlesCategoryDTO) {
         ArticlesCategoryEntity articlesCategory = articlesCategoryService.create(articlesCategoryDTO);
         return articlesCategoryDTOMapper.apply(articlesCategory);
     }
 
     @PutMapping(URI_ARTICLES_CATEGORIES_ID)
-    public ArticlesCategoryDTO update(@PathVariable Long id, @RequestBody ArticlesCategoryDTO articlesCategoryDTO) {
+    public ArticlesCategoryDTO update(@PathVariable Long id, @RequestBody @Valid ArticlesCategoryDTO articlesCategoryDTO) {
         ArticlesCategoryEntity articlesCategory = articlesCategoryService.update(id, articlesCategoryDTO);
         return articlesCategoryDTOMapper.apply(articlesCategory);
     }

@@ -4,6 +4,7 @@ import com.online.students.service.API.Users.UserDTO;
 import com.online.students.service.API.Users.UserDTOMapper;
 import com.online.students.service.API.Users.UserEntity;
 import com.online.students.service.API.Users.UserService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class AuthController {
     }
 
     @PostMapping(URI_SIGNUP)
-    public UserDTO signup(@RequestBody UserDTO userDTO) {
+    public UserDTO signup(@RequestBody @Valid UserDTO userDTO) {
         UserEntity newUser = userService.create(userDTO);
         return userDTOMapper.apply(newUser);
     }

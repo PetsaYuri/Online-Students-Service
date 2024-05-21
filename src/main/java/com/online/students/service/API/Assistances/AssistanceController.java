@@ -1,5 +1,6 @@
 package com.online.students.service.API.Assistances;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,12 +33,12 @@ public class AssistanceController {
     }
 
     @PostMapping
-    public AssistanceDTO create(@RequestBody AssistanceDTO assistanceDTO) {
+    public AssistanceDTO create(@RequestBody @Valid AssistanceDTO assistanceDTO) {
         return assistanceDTOMapper.apply(assistanceService.create(assistanceDTO));
     }
 
     @PutMapping(URI_ASSISTANCES_ID)
-    public AssistanceDTO update(@PathVariable Long id, @RequestBody AssistanceDTO assistanceDTO) {
+    public AssistanceDTO update(@PathVariable Long id, @RequestBody @Valid AssistanceDTO assistanceDTO) {
         return assistanceDTOMapper.apply(assistanceService.update(id, assistanceDTO));
     }
 
