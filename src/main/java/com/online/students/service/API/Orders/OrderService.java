@@ -4,9 +4,11 @@ import java.util.List;
 
 public interface OrderService {
 
-    List<OrderEntity> getAll();
+    List<OrderEntity> getAll(String status);
 
-    List<OrderEntity> getOwnOrders();
+    List<OrderEntity> getOwnOrders(String status);
+
+    List<Statuses> getStatuses();
 
     OrderEntity getById(Long id);
 

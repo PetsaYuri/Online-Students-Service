@@ -39,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/images/**").authenticated()
 
                         .requestMatchers(HttpMethod.GET, "/api/orders/own").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/orders/statuses").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/orders/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/orders/**").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/api/orders/**").authenticated()

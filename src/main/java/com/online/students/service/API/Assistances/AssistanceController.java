@@ -19,8 +19,8 @@ public class AssistanceController {
     }
 
     @GetMapping
-    public List<AssistanceDTO> getAll() {
-        return assistanceService.getAll()
+    public List<AssistanceDTO> getAll(@RequestParam(required = false) String category) {
+        return assistanceService.getAll(category)
                 .stream()
                 .map(assistanceDTOMapper::apply)
                 .toList();

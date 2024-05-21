@@ -24,6 +24,11 @@ public class ArticlesCategoryServiceImpl implements ArticlesCategoryService {
     }
 
     @Override
+    public ArticlesCategoryEntity getByTitle(String title) {
+        return articlesCategoryRepository.findByTitle(title);
+    }
+
+    @Override
     public ArticlesCategoryEntity create(ArticlesCategoryDTO articlesCategoryDTO) {
         ArticlesCategoryEntity articlesCategory = new ArticlesCategoryEntity(articlesCategoryDTO.title(), articlesCategoryDTO.description());
         return articlesCategoryRepository.save(articlesCategory);

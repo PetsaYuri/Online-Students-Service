@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -27,23 +28,60 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<OrderEntity> getAll() {
+    public List<OrderEntity> getAll(String status) {
+        if (status != null) {
+            Statuses statuses = Statuses.valueOf(status);
+            return orderRepository.findByStatus(statuses);
+        }
+
         return orderRepository.findAll();
     }
 
-    public List<OrderEntity> getOwnOrders() {
+    public List<OrderEntity> getOwnOrders(String status) {
         UserEntity currentUser = userService.getOneByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 
         if (currentUser.getRole().equals(Roles.INSTRUCTOR)) {
+
             List<OrderEntity> orders = new ArrayList<>();
             currentUser.getListOfCreatedAssistance()
                     .forEach(assistance -> {
                         orders.addAll(assistance.getOrders());
                     });
+
+            if (status != null) {
+                try {
+                    Statuses statuses = Statuses.valueOf(status);
+                    return orders
+                            .stream()
+                            .filter(order -> order.getStatus().equals(statuses))
+                            .toList();
+                }   catch (IllegalArgumentException ex) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+                }
+            }
+
             return orders;
         }
 
+        if (status != null) {
+            try {
+                Statuses statuses = Statuses.valueOf(status);
+                return currentUser.getListOfOrders()
+                        .stream()
+                        .filter(order -> order.getStatus().equals(statuses))
+                        .toList();
+            }   catch (IllegalArgumentException ex) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
+            }
+        }
+
         return currentUser.getListOfOrders();
+    }
+
+    @Override
+    public List<Statuses> getStatuses() {
+        return Arrays.stream(Statuses.values())
+                .toList();
     }
 
     @Override

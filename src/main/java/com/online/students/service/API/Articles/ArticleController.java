@@ -21,8 +21,8 @@ public class ArticleController {
     }
 
     @GetMapping
-    public List<ArticleDTO> getAll() {
-        return articleService.getAll()
+    public List<ArticleDTO> getAll(@RequestParam(required = false) String category) {
+        return articleService.getAll(category)
                 .stream()
                 .map(articleDTOMapper)
                 .toList();

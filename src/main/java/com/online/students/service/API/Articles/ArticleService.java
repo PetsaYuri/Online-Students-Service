@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    List<ArticleEntity> getAll();
+    List<ArticleEntity> getAll(String category);
 
     ArticleEntity getById(Long id);
 
