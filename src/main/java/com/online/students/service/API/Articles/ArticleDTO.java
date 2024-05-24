@@ -1,14 +1,14 @@
 package com.online.students.service.API.Articles;
 
-import com.online.students.service.API.Users.UserDTO;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
 
 public record ArticleDTO(
         Long id,
-        String title,
-        String description,
-        String image,
+        @NotNull @NotBlank String title,
+        @NotNull @NotBlank String description,
+        @NotNull @NotBlank String image,
         LocalDateTime time,
         Long creatorId,
-        Long articleCategoryId) {}
+        @NotNull @Min(1) @Max(999) Long articleCategoryId) {}

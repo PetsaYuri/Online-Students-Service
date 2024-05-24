@@ -1,5 +1,6 @@
 package com.online.students.service.API.Orders;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,12 +49,12 @@ public class OrderController {
     }
 
     @PostMapping
-    public OrderDTO create(@RequestBody OrderDTO orderDTO) {
+    public OrderDTO create(@RequestBody @Valid OrderDTO orderDTO) {
         return orderDTOMapper.apply(orderService.create(orderDTO));
     }
 
     @PutMapping(URI_ORDERS_ID)
-    public OrderDTO update(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
+    public OrderDTO update(@PathVariable Long id, @RequestBody @Valid OrderDTO orderDTO) {
         return orderDTOMapper.apply(orderService.update(id, orderDTO));
     }
 
